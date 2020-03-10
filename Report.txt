@@ -9,3 +9,4 @@ Software Design:
 Testing Strategy:
 
 Group Work:
+We divided up the work as follows - 
