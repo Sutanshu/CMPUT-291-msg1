@@ -1,0 +1,11 @@
+NOTE: To be changed to PDF format once complete for submission
+
+Overview and User Guide:
+(a general overview of your system with a small user guide)
+
+Software Design:
+(a detailed design of your software with a focus on the components required to deliver the major functions of your application)
+
+Testing Strategy:
+
+Group Work:
