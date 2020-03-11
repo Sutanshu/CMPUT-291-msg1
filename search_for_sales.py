@@ -1,7 +1,7 @@
 """
 Includes Questions 2 and 3
-Also includes main for testing.
 """
+
 import sqlite3
 import random
 import time
@@ -38,26 +38,35 @@ def search_for_sales():
 
     global connection, cursor
 
-    usr_input = input("Please enter some keywords, separted by a single space, to seach for sales: ")
-    keywords = set(usr_input.split())
+    repeat = True
     active_sales_with_descr = []
+    active_sales = []
+    while repeat:
+        usr_input = input("Please enter some keywords, separted by a single space, to seach for sales: ")
+        keywords = set(usr_input.split())
 
-    cursor.execute(get_active_sales())
-    active_sales = cursor.fetchall()
+        active_sales_with_descr = []
 
-    for active_sale in active_sales:
-        description = active_sale[1].lower().split()
-        num_matches = 0
+        cursor.execute(get_active_sales())
+        active_sales = cursor.fetchall()
 
-        for kw in keywords:
-            if kw in description:
-                num_matches += 1
+        for active_sale in active_sales:
+            description = active_sale[1].lower().split()
+            num_matches = 0
 
-        if num_matches > 0:
-            active_sales_with_descr.append((num_matches, active_sale))
-    
-    active_sales_with_descr.sort(key=lambda x: x[0], reverse=True)
-    #print(active_sales_with_descr)
+            for kw in keywords:
+                if kw in description:
+                    num_matches += 1
+
+            if num_matches > 0:
+                active_sales_with_descr.append((num_matches, active_sale))
+        
+        active_sales_with_descr.sort(key=lambda x: x[0], reverse=True)
+
+        if len(active_sales_with_descr) > 0:
+            repeat = False
+        else:
+            print("Those keywords did not return any results. Try again")
     
     for sale in active_sales_with_descr:
         amt = sale[1][2]
@@ -65,7 +74,25 @@ def search_for_sales():
             amt = sale[1][3]
         print(str(active_sales_with_descr.index(sale) + 1) + ". " + sale[1][1] + ", " + str(amt) + ", " + str(sale[1][4]))
     
-    num = int(input("Please choose a sale (number on the left) to view more information about it: "))
+    repeat = True
+
+    while repeat:
+        try:
+
+            num = int(input("Please choose a sale (number on the left) to view more information about it: "))
+
+        except ValueError:
+            print("Please enter a valid number")
+        except TypeError:
+            print("Please emter a valid number")
+        except Exception:
+            print("Sorry something went wrong, try agian.")
+        else:
+            if num > len(active_sales_with_descr) or num <= 0:
+                print("Please emter a valid number")
+            else:
+                repeat = False
+
 
     # display more info
     sale_chosen = active_sales_with_descr[num - 1]
@@ -79,18 +106,22 @@ def search_for_sales():
     print()
     
     # After a sale is selected
-    action = input("1. Place a bid on the selected sale\n2.List all active sales of the seller\nList all reviews of the seller\n\nChoose action: ")
+    repeat = True
+    while repeat:
+        action = input("1. Place a bid on the selected sale\n2.List all active sales of the seller\n3.List all reviews of the seller\n\nChoose action: ")
+        repeat = False
 
-    if action == "1":
-        place_bid(sale_chosen[1][0], max_amt)
-        
-    elif action == "2":
-        list_active_sales_of_seller()
-    elif action == "3":
-        list_reviews()
-    else:
-        # TODO
-        DOSOMETHING()
+        if action == "1":
+            place_bid(sale_chosen[1][0], max_amt)
+            
+        elif action == "2":
+            list_active_sales_of_seller()
+        elif action == "3":
+            list_reviews()
+        else:
+            print("Please choose a valid option")
+            repeat = True
+
 
 def place_bid(sale_id, max_amt_arg):
     """
@@ -102,10 +133,19 @@ def place_bid(sale_id, max_amt_arg):
     global connection, cursor
 
     valid_bid = False
+
     while not valid_bid:
-        amt = float(input("Enter a bid (Highest bid: %s):" % max_amt_arg))
-        if amt > max_amt_arg:
-            valid_bid = True
+        try:
+            amt = float(input("Enter a bid (Highest bid: %s):" % max_amt_arg))
+        except ValueError:
+            print("Please enter a valid number")
+        except TypeError:
+            print("Please emter a valid number")
+        except Exception:
+            print("Sorry something went wrong, try agian.")
+        else:
+            if amt > max_amt_arg:
+                valid_bid = True
     
     insert_bid(sale_id, amt)
 
@@ -118,7 +158,7 @@ def insert_bid(sid, bid_val):
     bid_num = False
     
     while not bid_num:
-        bid_num = random.randint(1, 100)
+        bid_num = random.randint(1, 999999999999999999999)
 
         if bid_num in all_bids:
             bid_num = False
