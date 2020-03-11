@@ -17,11 +17,19 @@ cursor.execute(sql_command)
 rows = cursor.fetchall()
 print(rows)
 
-reviewer_temp = 'Ryan'
-reviewee_temp = 'Josh'
+
+# part (a)
+reviewer_temp = 'Ryan'  # temp value
+reviewee_temp = 'Josh'  # temp value
 rtext = input('Please write your review:')
 rating = int(input('What is your rating 1-5?'))
 
 sql_command = """INSERT INTO reviews
                  VALUES (?, ?, ?, ?, ?)"""
 cursor.execute(sql_command, (reviewer_temp, reviewee_temp, rtext, rating, datetime.now().date()))
+
+
+# part (b)
+
+
+# part (c)
