@@ -65,21 +65,23 @@ def function1():
 
     global UserEmail
     print("Here are the products: ")
-    c.execute("select distinct products.pid, products.descr,count(rtext) as reviews, round(avg(rating),1) as averagerating \
-    from sales,previews,products where sales.edate> datetime('now') and previews.pid = products.pid and sales.pid = products.pid group by products.pid, products.descr,sales.edate")
-    array = c.fetchall()
-    c.execute("select count(*) from sales,products where sales.pid = products.pid and sales.edate>datetime('now') group by products.pid;")
-    array2= c.fetchall()
-    actualarray=[]
+    c.execute("select products.pid, count(*) as no from sales,products where sales.pid = products.pid and sales.edate>datetime('now') group by products.pid order by no desc;")
+    array2 = c.fetchall()
+    array=[]
+    for i in range(len(array2)):
+        c.execute("select distinct products.pid, products.descr,count(distinct rtext) as reviews, round(avg(rating),1) as averagerating \
+        from sales,previews,products where sales.edate> datetime('now') and products.pid = ? and sales.pid = ? and previews.pid = ?",(array2[i][0],array2[i][0],array2[i][0],))
+        array.append(c.fetchall())
+    actualarray = []
     k=0
     for i in array:
-        for j in i:
+        for j in i[0]:
             actualarray.append(j)
-        actualarray.append(array2[k][0])
+        actualarray.append(array2[k][1])
         k+=1
     k=0
     print("pid  description no.OfReviews avgRating no.OfSalesActive")
-    for i in range(len(array)):
+    for i in range(len(array2)):
         for j in range(5):
             print(actualarray[k],end = "\t")
             k+=1
@@ -132,7 +134,7 @@ def function1():
             print(i[0])
     if number == 3:
         print("Sales associated to {} are: ".format(choice))
-        c.execute("select sales.sid from sales,products where sales.pid = products.pid and products.pid = ? and sales.edate>datetime('now')",(choice,))
+        c.execute("select sales.sid from sales,products where sales.pid = products.pid and products.pid = ? and sales.edate>datetime('now') order by sales.edate desc",(choice,))
         print("Active sales are: ")
         for i in c.fetchall():
             print(i[0])
@@ -240,34 +242,52 @@ def main():
             continue
         if choice == 1:
             handleLogin()
-            functionality = interface()
-            if functionality == 1:
-                function1()
-            if functionality == 2:
-                function2()
-            if functionality ==3:
-                function3()
-            if functionality == 4:
-                function4()
-            if functionality == 5:
-                function5()
-            if functionality == 6:
-                #UserEmail = None
-                main()
+            while True:
+                functionality = interface()
+                if functionality == 1:
+                    function1()
+                    continue
+                if functionality == 2:
+                    function2()
+                    continue
+                if functionality ==3:
+                    function3()
+                    continue
+                if functionality == 4:
+                    function4()
+                    continue
+                if functionality == 5:
+                    function5()
+                    continue
+                if functionality == 6:
+                    #UserEmail = None
+                    main()
+                break
             break
         if choice == 2:
             handleSignUp()
-            functionality = interface()
-            if functionality == 1:
-                function1()
-            if functionality == 2:
-                function2()
-            if functionality ==3:
-                function3()
-            if functionality == 4:
-                function4()
-            if functionality == 5:
-                function5()
+            while True:
+                functionality = interface()
+                if functionality == 1:
+                    function1()
+                    continue
+                if functionality == 2:
+                    function2()
+                    continue
+                if functionality ==3:
+                    function3()
+                    continue
+                if functionality == 4:
+                    function4()
+                    continue
+                if functionality == 5:
+                    function5()
+                    continue
+                if functionality == 6:
+                    #UserEmail = None
+                    main()
+                break
+            break
         if choice == 3:
             break
         sys.exit()
