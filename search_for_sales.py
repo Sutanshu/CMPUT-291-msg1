@@ -137,12 +137,6 @@ def choose_sale_more_info(active_sales_with_descr):
             else:
                 repeat = False
     sale_chosen = active_sales_with_descr[num - 1]
-    row = show_more_info(sale_chosen)
-
-    return row, sale_chosen
-
-
-def show_more_info(sale_chosen):
 
     query_more_info = """
             SELECT lister, COUNT(*), AVG(rating), descr, edate, cond, MAX(amount), rprice
@@ -153,6 +147,7 @@ def show_more_info(sale_chosen):
     cursor.execute(query_more_info, (sale_chosen[1][0], ))
 
     row = cursor.fetchone()
+    print()
     print("Lister: " + row[0])
     print("Number of reviews:", str(row[1]))
     print("Average rating:", str(row[2]))
@@ -163,7 +158,7 @@ def show_more_info(sale_chosen):
     print("MAX BID: " + str(row[6]))
     print()
     
-    return row
+    return row, sale_chosen
     
 def place_bid(sale_id, max_amt_arg):
     """
@@ -199,7 +194,6 @@ def insert_bid(sid, bid_val):
     select_all_bids = "SELECT bid FROM bids;"
     cursor.execute(select_all_bids)
     all_bids = cursor.fetchall()
-    print(all_bids)
     bid_num = False
     
     while not bid_num:
@@ -207,7 +201,6 @@ def insert_bid(sid, bid_val):
 
         if bid_num in all_bids:
             bid_num = False
-    print(bid_num)
 
     insert_bid_query = "INSERT INTO bids(bid, bidder, sid, bdate, amount) VALUES (?, ?, ?, ?, ?);"
     CURRENT_USER = "mc@gmail.com"
@@ -241,8 +234,16 @@ def list_active_sales_of_seller(seller):
         if amt == None:
             amt = row[3]
         print("{0:<26}|{1:25}|{2:<25.3f}|{3}".format(rows.index(row) + 1, row[1], amt, row[4]))
+    
+    rows_enum = list(enumerate(rows))
 
-    choose_sale_more_info(rows)
+    row, sale_chosen = choose_sale_more_info(rows_enum)
+
+    # display more info
+    max_amt = row[6]
+
+    # After a sale is selected
+    choose_action_for_sale(sale_chosen, max_amt, row)
     return
 
     
@@ -261,8 +262,9 @@ def list_reviews(seller):
             """
     cursor.execute(query, (seller, ))
     rows = cursor.fetchall()
-    print(rows)
-    connection.commit()
+    for row in rows:
+        print(row[0])
+
     return
 
 def main():
