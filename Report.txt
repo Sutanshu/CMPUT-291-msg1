@@ -9,7 +9,15 @@ ValueErrors and invalid input are rigorously handled by the application to ensur
 Software Design:
 (a detailed design of your software with a focus on the components required to deliver the major functions of your application)
 
+
 Testing Strategy:
+We tested our code on the commandline by passing the argument: python3 assignment3.py test.db where test.db was our testing database. We initially had everybody compile their code locally, and run it on respective databases to ensure the little pieces of codes were working, before merging all of it into two source code files. The main file is assignment3.py which handles the main flow of the program, and another file called Two3.py communicates with this file in order to effectively handle questions 2 and 3(1-2 follow up), while providing a base for 1c, where question 3 is used extensively. 
 
 Group Work:
+
+We used GitHub as a means of communicating, and merging our code, while updating several versions of it. 
+
 We divided up the work as follows - 
+Sutanshu was responsible for designing the interface, and the basic layout of the software, in addition to handling functionality one (includes 3).
+Vyome was responsible for handling functionalities 2 and 3. Functionality 3 was is split and used in both functionality 1, and 2.
+Ryan was responsible for handling functionalities 4 and 5, elaborate as you want.
