@@ -26,14 +26,6 @@ def search_for_sales():
     in either sale description or product description (if the sale is associated with a product); 
     see Bullet 3 for the format of the listing and all actions that are enabled after a listing. 
 
-    tables:
-    users(email, name, pwd, city, gender)
-    products(pid, descr)
-    sales(sid, lister, pid, edate, descr, cond, rprice)
-    bids(bid, bidder, sid, bdate, amount)
-    reviews(reviewer, reviewee, rating, rtext, rdate)
-    previews(rid, pid, reviewer, rating, rtext, rdate)
-
     """
 
     global connection, cursor
