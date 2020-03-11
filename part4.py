@@ -1,23 +1,30 @@
-from parse import *
 from datetime import datetime
+import sqlite3
 
-sid = '002'#temp value
-name = 'Ryan'#temp value
+sid1 = '002'  # temp value
+name1 = 'Ryan'  # temp value
 print('Post a sale!')
-op1 = input('Do you want to enter a product ID? y/n:')
-if op1 == 'y':
-    pid = input('Product ID:')
+op = input('Do you want to enter a product ID? y/n:')
+if op == 'y':
+    pid1 = input('Product ID:')
 else:
-    pid = None
-edate = parse(input('Sale end date and time:'))#has not been tested, probably not working lol
+    pid1 = None
+edate = datetime.strptime(input('Sale end date and time:'), '%Y-%m-%d').date()
 descr = input('Sale description:')
 cond = input('Condition:')
-op2 = input('Do you want to enter a reserved price? y/n:')
-if op2 == 'y':
+op = input('Do you want to enter a reserved price? y/n:')
+if op == 'y':
     rprice = int(input('Reserved price:'))
 else:
     rprice = None
 
-if edate > datetime.now():
-    #temp cursor object
-    c.execute(''' INSERT INTO VALUES (sid, name, pid, edate, descr, cond, rprice)''')
+    
+    
+# for some reason, I have been unable to insert variables into the SQL command, my implementation is below. I am not sure what is going wrong, it throws a syntax error with the %, maybe something is off with my IDE
+if edate > datetime.now().date():
+    '''
+    sql_command = ("""INSERT INTO sales
+                   VALUES (%s, %s, %s, %s, %s, %s, %s)""")
+    var_tuple = (sid, name, pid, edate, descr, cond, rprice)
+    cursor.execute(sql_command, var_tuple)
+    '''
