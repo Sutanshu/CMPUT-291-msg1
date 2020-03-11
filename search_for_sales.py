@@ -112,7 +112,6 @@ def choose_action_for_sale(sale_chosen, max_amt, row):
 
 def choose_sale_more_info(active_sales_with_descr):
     repeat = True
-    print(active_sales_with_descr)
 
     # Asks the user to choose a sale to display more information about it
     while repeat:
@@ -184,7 +183,7 @@ def insert_bid(sid, bid_val):
     Insert the bid in the datbase
     """
     global connection, cursor
-    
+
     select_all_bids = "SELECT bid FROM bids;"
     cursor.execute(select_all_bids)
     all_bids = cursor.fetchall()
