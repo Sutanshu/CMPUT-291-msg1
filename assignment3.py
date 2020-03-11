@@ -271,33 +271,7 @@ def function2():
 
 
 def function3():
-    conn = sqlite3.connect('assignment22.db')
-    c = conn.cursor()
-    
-    sid = '002'  # temp value
-    print("Post a sale!")
-    op = input("Do you want to enter a product ID? y/n:")
-    if op == 'y':
-        pid = input("Product ID:")
-    else:
-        pid = None
-    edate = datetime.strptime(input("Sale end date:"), '%Y-%m-%d').date()
-    descr = input("Sale description:")
-    cond = input("Condition:")
-    op = input("Do you want to enter a reserved price? y/n:")
-    if op == 'y':
-        rprice = int(input("Reserved price:"))
-    else:
-        rprice = None
-
-    if edate > datetime.now().date():
-        sql_command = """INSERT INTO sales
-                         VALUES (?, ?, ?, ?, ?, ?, ?)"""
-        c.execute(sql_command, (sid, UserEmail, pid, edate, descr, cond, rprice))
-    else:
-        print("Error, sale end date is in the past")
-        
-    conn.commit()
+    pass
 
 
 def function4():
@@ -333,6 +307,9 @@ def main():
         print("3. Exit the program")
         try:
             choice = int(input("Please enter your choice: "))
+            if choice >3 or choice <=0:
+                print("Please enter a valid number between 1-3, try again.")
+                continue
         except ValueError:
             print("Please enter a number! Starting again... ")
             continue
