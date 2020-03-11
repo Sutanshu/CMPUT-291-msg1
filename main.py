@@ -208,8 +208,7 @@ def function4():
     conn = sqlite3.connect('assignment22.db')
     c = conn.cursor()
     
-    sid = '002'  # temp value
-    name = 'Ryan'  # temp value
+    sid = '002'
     print("Post a sale!")
     op = input("Do you want to enter a product ID? y/n:")
     if op == 'y':
@@ -228,7 +227,7 @@ def function4():
     if edate > datetime.now().date():
         sql_command = """INSERT INTO sales
                          VALUES (?, ?, ?, ?, ?, ?, ?)"""
-        c.execute(sql_command, (sid, name, pid, edate, descr, cond, rprice))
+        c.execute(sql_command, (sid, UserEmail, pid, edate, descr, cond, rprice))
     else:
         print("Error, sale end date is in the past")
         
