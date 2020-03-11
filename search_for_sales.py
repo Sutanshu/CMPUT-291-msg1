@@ -79,7 +79,6 @@ def search_for_sales():
         if amt == None:
             amt = sale[1][3]
         print("{0:<26}|{1:25}|{2:<25.3f}|{3}".format(active_sales_with_descr.index(sale) + 1, sale[1][1], amt, sale[1][4]))
-        #print(str(active_sales_with_descr.index(sale) + 1) + ". " + sale[1][1] + "| " + str(amt) + "| " + str(sale[1][4]))
     
     repeat = True
 
@@ -93,6 +92,9 @@ def search_for_sales():
     choose_action_for_sale(sale_chosen, max_amt, row)
 
 def choose_action_for_sale(sale_chosen, max_amt, row):
+    """
+    Ask the user to choose an action related to the sale
+    """
     repeat = True
     while repeat:
         action = input("1. Place a bid on the selected sale\n2.List all active sales of the seller\n3.List all reviews of the seller\n\nChoose action: ")
@@ -107,7 +109,6 @@ def choose_action_for_sale(sale_chosen, max_amt, row):
         else:
             print("Please choose a valid option")
             repeat = True
-
 
 def choose_sale_more_info(active_sales_with_descr):
     repeat = True
@@ -183,6 +184,7 @@ def insert_bid(sid, bid_val):
     Insert the bid in the datbase
     """
     global connection, cursor
+    
     select_all_bids = "SELECT bid FROM bids;"
     cursor.execute(select_all_bids)
     all_bids = cursor.fetchall()
@@ -227,7 +229,7 @@ def list_active_sales_of_seller(seller):
             amt = row[3]
         print("{0:<26}|{1:25}|{2:<25.3f}|{3}".format(rows.index(row) + 1, row[1], amt, row[4]))
     
-    rows_enum = list(enumerate(rows))
+    rows_enum = list(enumerate(rows)) # enumerated so that it is compatible with the choose_sale_more_info() function
 
     row, sale_chosen = choose_sale_more_info(rows_enum)
 
