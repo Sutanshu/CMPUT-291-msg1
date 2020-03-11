@@ -309,21 +309,18 @@ def function4():
     a review of that user, list all active listings of that user, and list all reviews of the
     user.
     """
+    conn = sqlite3.connect('assignment22.db')
+    c = conn.cursor()
+    
     sql_command = """DROP TABLE IF EXISTS users_search"""
-    cursor.execute(sql_command)
+    c.execute(sql_command)
 
     keyword = input('Search for user using keyword:')
 
     # not sure what the issue is here, ideas?
     # it works with a hardcoded keyword instead of the '?' placeholder
     sql_command = """CREATE TABLE users_search AS SELECT email, name, city FROM users WHERE name LIKE '%?%' OR email LIKE '%?%';"""
-    cursor.execute(sql_command, (keyword, keyword))
-
-    # to test and confirm the output is correct
-    sql_command = """SELECT * FROM users_search;"""
-    cursor.execute(sql_command)
-    rows = cursor.fetchall()
-    print(rows)
+    c.execute(sql_command, (keyword, keyword))
 
 
     # part (a)
@@ -334,7 +331,7 @@ def function4():
 
     sql_command = """INSERT INTO reviews
                      VALUES (?, ?, ?, ?, ?)"""
-    cursor.execute(sql_command, (reviewer_temp, reviewee_temp, rtext, rating, datetime.now().date()))
+    c.execute(sql_command, (reviewer_temp, reviewee_temp, rtext, rating, datetime.now().date()))
 
 
     # part (b)
@@ -342,6 +339,8 @@ def function4():
 
     # part (c)
     list_reviews(UserEmail)
+    
+    conn.commit()
     pass
     
 def list_reviews(seller):
@@ -349,7 +348,7 @@ def list_reviews(seller):
     List all reviews of the seller. 
     """
 
-    global connection, cursor
+    global connection, c
     print(seller)
 
     query = """
@@ -357,8 +356,8 @@ def list_reviews(seller):
             FROM reviews
             WHERE reviewee=?;
             """
-    cursor.execute(query, (seller, ))
-    rows = cursor.fetchall()
+    c.execute(query, (seller, ))
+    rows = c.fetchall()
     for row in rows:
         print(row[0])
 
