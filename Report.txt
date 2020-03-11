@@ -2,6 +2,9 @@ NOTE: To be changed to PDF format once complete for submission
 
 Overview and User Guide:
 (a general overview of your system with a small user guide)
+The system starts with a welcome message and the user is prompted to login or sign up to access store content. The user also has the option to exit the application should they be so inclined. Once successfully logged in with a valid account, the user has a number of basic functionality options they can walk through: list products, search for sales, post a sale, and search for users. It starts off by listing products, from which the user is able to select the pid of one of the products from the presented options. From there, the user can either write a review, list all reviews of the chosen product, or list all actives sales associated to the chosen product.
+
+ValueErrors and invalid input are rigorously handled by the application to ensure that the user does not enter any incorrect input that cannot be processed under the given conditions. 
 
 Software Design:
 (a detailed design of your software with a focus on the components required to deliver the major functions of your application)
