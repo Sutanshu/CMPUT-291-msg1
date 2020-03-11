@@ -72,19 +72,17 @@ def search_for_sales():
         amt = sale[1][2]
         if amt == None:
             amt = sale[1][3]
-        print(str(active_sales_with_descr.index(sale) + 1) + ". " + sale[1][1] + ", " + str(amt) + ", " + str(sale[1][4]))
+        print(str(active_sales_with_descr.index(sale) + 1) + ". " + sale[1][1] + "| " + str(amt) + "| " + str(sale[1][4]))
     
     repeat = True
 
     while repeat:
         try:
-
             num = int(input("Please choose a sale (number on the left) to view more information about it: "))
-
         except ValueError:
             print("Please enter a valid number")
         except TypeError:
-            print("Please emter a valid number")
+            print("Please enter a valid number")
         except Exception:
             print("Sorry something went wrong, try agian.")
         else:
@@ -115,7 +113,7 @@ def search_for_sales():
             place_bid(sale_chosen[1][0], max_amt)
             
         elif action == "2":
-            list_active_sales_of_seller()
+            list_active_sales_of_seller(row[0])
         elif action == "3":
             list_reviews()
         else:
@@ -170,8 +168,23 @@ def insert_bid(sid, bid_val):
 
     connection.commit()
 
-def list_active_sales_of_seller():
-    pass
+def list_active_sales_of_seller(seller):
+    global connection, cursor
+    
+    query = """
+            select s.sid, s.descr, max (amount), s.rprice, cast(julianday(s.edate)-julianday('now') as int)
+            from sales s left outer join bids b using (sid)
+            where s.edate > datetime('now') AND lister =?
+            group by sid, s.descr, s.edate;
+            """
+    cursor.execute(query, (seller, ))
+    connection.commit()
+    rows = cursor.fetchall()
+    print(rows)
+    
+    return
+
+    
 
 def list_reviews():
     pass
