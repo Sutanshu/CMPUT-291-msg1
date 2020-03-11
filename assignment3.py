@@ -174,6 +174,7 @@ def function1():
         print("Active sales are: ")
         for i in c.fetchall():
             print(i[0], "\t", i[1])
+        print("Please enter the following sale's description into the prompt below for further information!")
         Two3.newfunc(choice, UserEmail,sys.argv[1])
     if number == 4:
         main()
@@ -275,8 +276,8 @@ def function3():
     Part 4 of the project. The user can post a sale, where they enter a product id (optional), a sale end
     date and time, a sale description, a condition, and a reserved price (optional). 
     """
-    conn = sqlite3.connect('assignment22.db')
-    c = conn.cursor()
+
+    global conn,c
     
     sid = '002'  # temp value
     print("Post a sale!")
@@ -309,8 +310,7 @@ def function4():
     a review of that user, list all active listings of that user, and list all reviews of the
     user.
     """
-    conn = sqlite3.connect('assignment22.db')
-    c = conn.cursor()
+    global conn,c
     
     sql_command = """DROP TABLE IF EXISTS users_search"""
     c.execute(sql_command)
