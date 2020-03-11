@@ -1,5 +1,6 @@
 -- Data prepapred by Cecilia Wei, ywei2@ualberta.ca
 -- and updated by Davood Rafiei, drafiei@ualberta.ca
+-- I modified it by removing some tables
 -- Published on Jan 31, 2020
 
 -- Let's insert some tuples to our tables. This is just an initial set and 
