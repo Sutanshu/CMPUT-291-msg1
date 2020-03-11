@@ -271,6 +271,10 @@ def function2():
 
 
 def function3():
+    """
+    Part 4 of the project. The user can post a sale, where they enter a product id (optional), a sale end
+    date and time, a sale description, a condition, and a reserved price (optional). 
+    """
     conn = sqlite3.connect('assignment22.db')
     c = conn.cursor()
     
@@ -300,6 +304,11 @@ def function3():
     conn.commit()
 
 def function4():
+    """
+    Part 5 of the project, searching for users. User searches for another user, and can write
+    a review of that user, list all active listings of that user, and list all reviews of the
+    user.
+    """
     sql_command = """DROP TABLE IF EXISTS users_search"""
     cursor.execute(sql_command)
 
