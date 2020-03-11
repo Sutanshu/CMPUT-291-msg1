@@ -115,7 +115,7 @@ def search_for_sales():
         elif action == "2":
             list_active_sales_of_seller(row[0])
         elif action == "3":
-            list_reviews()
+            list_reviews(row[0])
         else:
             print("Please choose a valid option")
             repeat = True
@@ -186,19 +186,32 @@ def list_active_sales_of_seller(seller):
 
     
 
-def list_reviews():
-    pass
+def list_reviews(seller):
+    """
+    List all reviews of the seller. 
+    tables:
+    users(email, name, pwd, city, gender)
+    products(pid, descr)
+    sales(sid, lister, pid, edate, descr, cond, rprice)
+    bids(bid, bidder, sid, bdate, amount)
+    reviews(reviewer, reviewee, rating, rtext, rdate)
+    previews(rid, pid, reviewer, rating, rtext, rdate)
+    """
 
-def DOSOMETHING():
-    pass
-    
+    global connection, cursor
+    print(seller)
 
-    #active_sales = cursor.fetchall()
-    # active_sale = cursor.fetchone()
-    # sale_descr = active_sale[1]
-
-    # print(sale_descr)
+    query = """
+            SELECT rtext 
+            FROM reviews
+            WHERE reviewee=?;
+            """
+    cursor.execute(query, (seller, ))
+    rows = cursor.fetchall()
+    print(rows)
     connection.commit()
+    return
+
 
 def get_more_info():
     """
