@@ -154,9 +154,9 @@ def choose_sale_more_info(active_sales_with_descr):
     
 def place_bid(sale_id, max_amt_arg):
     """
-    Place a bid on the selected sale by entering an amount, and the application should record the bid in the database. 
-    The fields bid must be set to a unique number, bidder must be set to the current user, sid to the sid of the sale, and the bdate to the current system date and time. 
-    The bid amount must be greater than the current largest bid; otherwise, the bid should not be accepted. Note that the user can have multiple bids on the same sale.
+    Place a bid on the selected sale by entering an amount, and the application records the bid in the database. 
+    The fields bid is set to a unique number, bidder is set to the current user, sid to the sid of the sale, and the bdate to the current system date and time. 
+    The bid should be greater than the current largest bid; otherwise, the bid is not be accepted. Note that the user can have multiple bids on the same sale.
     """
 
     global connection, cursor
@@ -203,7 +203,7 @@ def insert_bid(sid, bid_val):
 
 def list_active_sales_of_seller(seller):
     """
-    List all active sales of the seller. The result should be ordered on the remaining time of the sale with sales to expire earlier appearing first.
+    List all active sales of the seller. The result is ordered on the remaining time of the sale with sales to expire earlier appearing first.
     """
     global connection, cursor
     
