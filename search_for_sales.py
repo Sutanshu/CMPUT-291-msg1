@@ -1,3 +1,7 @@
+"""
+Includes Questions 2 and 3
+Also includes main for testing.
+"""
 import sqlite3
 import random
 import time
