@@ -33,3 +33,23 @@ cursor.execute(sql_command, (reviewer_temp, reviewee_temp, rtext, rating, dateti
 
 
 # part (c)
+list_reviews(UserEmail)
+def list_reviews(seller):
+    """
+    List all reviews of the seller. 
+    """
+
+    global connection, cursor
+    print(seller)
+
+    query = """
+            SELECT rtext 
+            FROM reviews
+            WHERE reviewee=?;
+            """
+    cursor.execute(query, (seller, ))
+    rows = cursor.fetchall()
+    for row in rows:
+        print(row[0])
+
+    return
