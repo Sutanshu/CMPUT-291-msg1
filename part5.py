@@ -4,13 +4,24 @@ import datetime from datetime
 sql_command = """DROP TABLE IF EXISTS users_search"""
 cursor.execute(sql_command)
 
-sql_command = """CREATE TABLE users_search AS SELECT email, name, city FROM users WHERE name LIKE '%keyword%' OR email LIKE '%keyword%';"""  # keyword as a placeholder
-cursor.execute(sql_command)
+keyword = input('Search for user using keyword:')
 
+# not sure what the issue is here, ideas?
+# it works with a hardcoded keyword instead of the '?' placeholder
+sql_command = """CREATE TABLE users_search AS SELECT email, name, city FROM users WHERE name LIKE '%?%' OR email LIKE '%?%';"""
+cursor.execute(sql_command, (keyword, keyword))
+
+# to test and confirm the output is correct
+sql_command = """SELECT * FROM users_search;"""
+cursor.execute(sql_command)
+rows = cursor.fetchall()
+print(rows)
+
+reviewer_temp = 'Ryan'
+reviewee_temp = 'Josh'
 rtext = input('Please write your review:')
 rating = int(input('What is your rating 1-5?'))
 
 sql_command = """INSERT INTO reviews
-                 VALUES (reviewer_temp, reviewee_temp, %s, %s, datetime.now().date())"""
-var_tuple = (rtext, rating)
-cursor.execute(sql_command, var_tuple)
+                 VALUES (?, ?, ?, ?, ?)"""
+cursor.execute(sql_command, (reviewer_temp, reviewee_temp, rtext, rating, datetime.now().date()))
