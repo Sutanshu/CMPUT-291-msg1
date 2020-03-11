@@ -1,7 +1,6 @@
 NOTE: To be changed to PDF format once complete for submission
 
 Overview and User Guide:
-(a general overview of your system with a small user guide)
 The system starts with a welcome message and the user is prompted to login or sign up to access store content. To sign up, the user must enter their name, email address, a password, the city they live in, and their gender (F/M). The user also has the option to exit the application should they be so inclined. Once successfully logged in with a valid account, the user has a number of basic functionality options they can walk through: list products, search for sales, post a sale, and search for users. It starts off by listing products, from which the user is able to select the pid of one of the products from the presented options. From there, the user can either write a review, list all reviews of the chosen product, or list all actives sales associated to the chosen product.
 
 ValueErrors and invalid input are rigorously handled by the application to ensure that the user does not enter any incorrect input that cannot be processed under the given conditions. 
@@ -20,4 +19,4 @@ We used GitHub as a means of communicating, and merging our code, while updating
 We divided up the work as follows - 
 Sutanshu was responsible for designing the interface, and the basic layout of the software, in addition to handling functionality one (includes 3).
 Vyome was responsible for handling functionalities 2 and 3. Functionality 3 was is split and used in both functionality 1, and 2.
-Ryan was responsible for handling functionalities 4 and 5, elaborate as you want.
+Ryan was responsible for handling functionalities 4 and 5. Some functionality is missing here, 5b was unable to be implemented, a temp sale ID is used instead of generating a new one, and 5a is not quite working because of an inability to correctly pass the parameter into the LIKE part of the query.
