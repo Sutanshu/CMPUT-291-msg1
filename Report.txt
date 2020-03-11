@@ -6,7 +6,7 @@ The system starts with a welcome message and the user is prompted to login or si
 ValueErrors and invalid input are rigorously handled by the application to ensure that the user does not enter any incorrect input that cannot be processed under the given conditions. 
 
 Software Design:
-(a detailed design of your software with a focus on the components required to deliver the major functions of your application)
+We have a primary interface where the user can access a number of functionalities (as described earlier, listing products, searching for sales, posting sales, and searching for users). These are broken up into separate functions, aside from a file Two3.py which communicates between questions 2+3 and the remainder of the project. We ensured to use comments to improve the clarify of our functions and anywhere else deemed necessary due to complexity and functionality that is not intuitively obvious. The files flow smoothly and in a natural progression of tasks.
 
 
 Testing Strategy:
